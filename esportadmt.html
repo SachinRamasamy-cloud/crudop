@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <section>
+        <div class="flex justify-between items-center p-4 bg-white/50 shadow-md">
+
+            <!-- Title -->
+            <div>
+                <h1 class="text-3xl font-bold" style="font-family: 'Orbitron', sans-serif;">Esport Cup</h1>
+            </div>
+
+            <!-- Search -->
+            <div class="hidden md:flex relative w-1/3">
+                <input type="text" placeholder="Search..."
+                    class="w-full rounded-full border border-purple-300 p-2 pl-10 pr-4 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400">
+                <i
+                    class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+
+            <!-- Profile / Login -->
+            <div class="hidden md:flex justify-center space-x-4 items-center">
+                <div class="flex items-center space-x-2">
+                    <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTDnTIKoY3mdKWZFSXyQmFpjQ5Ke0WtShlWt72bmoEizuPTIn4Vk31nAKPdtyvbDlpCd5zMJkphVcY7PyAt3imy_bmM39LIIENslukyeMemmg"
+                        class="w-8 h-8 rounded-full" alt="">
+                    <span class="text-[20px]">En/IN</span>
+                </div>
+                <div class="flex items-center space-x-2 cursor-pointer">
+                    <i class="fa-solid fa-user text-gray-700 hover:text-blue-500 text-2xl"></i>
+                    <a href="login.html"><span class="text-[20px]">Login</span></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="p-4 max-w-5xl mx-auto">
+
+        <!-- Section Tabs -->
+        <div class="flex justify-center gap-4 mb-6">
+            <button class="tab-btn bg-blue-500 text-white px-4 py-2 rounded" data-section="topgames">Top Games</button>
+            <button class="tab-btn bg-gray-200 px-4 py-2 rounded" data-section="topplays">Top Plays</button>
+            <button class="tab-btn bg-gray-200 px-4 py-2 rounded" data-section="topvideos">Top Videos</button>
+            <button class="tab-btn bg-gray-200 px-4 py-2 rounded" data-section="tournaments">Coming Tournaments</button>
+        </div>
+
+        <!-- Section Forms and Tables -->
+        <div id="section-container">
+            <!-- Form & table will be injected here dynamically -->
+        </div>
+
+    </div>
+    <script>
+        const sections = [
+            { key: "topcard", label: "Top Games" },
+            { key: "topplays", label: "Top Plays" },
+            { key: "topvideos", label: "Top Videos" },
+            { key: "tournaments", label: "Coming Tournaments" }
+        ];
+
+        let activeSection = sections[0].key; // default section
+        let editIndex = null;
+
+        const inputtxt = document.getElementById("ytplay");
+        const player = document.getElementById("ytplayer");
+
+
+        // Helper functions
+        function getSectionData(sectionKey) {
+            return JSON.parse(localStorage.getItem(sectionKey)) || [];
+        }
+
+        function saveSectionData(sectionKey, data) {
+            localStorage.setItem(sectionKey, JSON.stringify(data));
+        }
+
+        // Render admin form + table for a section
+        function renderSection(sectionKey) {
+            const container = document.getElementById("section-container");
+            container.innerHTML = "";
+
+            const data = getSectionData(sectionKey);
+
+            const formHtml = `
+        <div class="mb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+            <input type="text" id="nameInput" placeholder="Name" class="border p-2 rounded">
+            <input type="text" id="imgInput" placeholder="Image URL" class="border p-2 rounded">
+            <input type="text" id="paraInput" placeholder="Description / Info" class="border p-2 rounded">
+        </div>
+        <div class="flex jsutify-center">
+            <button id="saveBtn" class="bg-green-500 text-white item-center  px-4 py-2 rounded mb-6">Save</button>
+        </div>
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border px-4 py-2">Name</th>
+                    <th class="border px-4 py-2">Info</th>
+                    <th class="border px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="sectionTable"></tbody>
+        </table>
+    `;
+            container.innerHTML = formHtml;
+
+            renderTable(sectionKey);
+
+            document.getElementById("saveBtn").onclick = () => {
+                const tname = document.getElementById("nameInput").value.trim();
+                const timg = document.getElementById("imgInput").value.trim();
+                const tpara = document.getElementById("paraInput").value.trim();
+                if (!tname || !timg || !tpara) { alert("Fill all fields!"); return; }
+
+                const currentData = getSectionData(sectionKey);
+                if (editIndex === null) {
+                    currentData.push({ tname, timg, tpara });
+                } else {
+                    currentData[editIndex] = { tname, timg, tpara };
+                    editIndex = null;
+                }
+
+                saveSectionData(sectionKey, currentData);
+                renderTable(sectionKey);
+                document.getElementById("nameInput").value = "";
+                document.getElementById("imgInput").value = "";
+                document.getElementById("paraInput").value = "";
+            };
+        }
+
+        // Render table function
+        function renderTable(sectionKey) {
+            const tableBody = document.getElementById("sectionTable");
+            tableBody.innerHTML = "";
+            const data = getSectionData(sectionKey);
+
+            data.forEach((item, index) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+            <td class="border px-4 py-2">${item.tname}</td>
+            <td class="border px-4 py-2">${item.tpara}</td>
+            <td class="border px-4 py-2 space-x-2">
+                <button class="bg-blue-500 text-white px-2 py-1 rounded" onclick="editItem(${index})">Edit</button>
+                <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="deleteItem(${index})">Delete</button>
+            </td>
+        `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Edit item
+        window.editItem = (index) => {
+            const data = getSectionData(activeSection);
+            document.getElementById("nameInput").value = data[index].tname;
+            document.getElementById("imgInput").value = data[index].timg;
+            document.getElementById("paraInput").value = data[index].tpara;
+            editIndex = index;
+        };
+
+        // Delete item
+        window.deleteItem = (index) => {
+            if (!confirm("Are you sure?")) return;
+            const data = getSectionData(activeSection);
+            data.splice(index, 1);
+            saveSectionData(activeSection, data);
+            renderTable(activeSection);
+        };
+
+        // Tab buttons
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("bg-blue-500", "text-white"));
+                btn.classList.add("bg-blue-500", "text-white");
+                activeSection = btn.dataset.section;
+                editIndex = null;
+                renderSection(activeSection);
+            });
+        });
+
+        // Load first section
+        renderSection(activeSection);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esport Cup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="esport.js"></script>
+</head>
+
+<body class="bg-white text-gray-900 font-sans">
+
+  <!-- Header -->
+  <section>
+    <div class="flex justify-between items-center p-4 bg-white shadow-md">
+
+      <!-- Title -->
+      <div>
+        <h1 class="text-3xl font-bold text-blue-700" style="font-family: 'Orbitron', sans-serif;">
+          Esport Cup
+        </h1>
+      </div>
+
+      <!-- Search -->
+      <div class="hidden md:flex relative w-1/3">
+        <input type="text" placeholder="Search..."
+          class="w-full rounded-full border border-gray-300 bg-white text-gray-800 p-2 pl-10 pr-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+      </div>
+
+      <!-- Profile / Login -->
+      <div class="hidden md:flex justify-center space-x-4 items-center">
+        <div class="flex items-center space-x-2">
+          <img
+            src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTDnTIKoY3mdKWZFSXyQmFpjQ5Ke0WtShlWt72bmoEizuPTIn4Vk31nAKPdtyvbDlpCd5zMJkphVcY7PyAt3imy_bmM39LIIENslukyeMemmg"
+            class="w-8 h-8 rounded-full" alt="">
+          <span class="text-[18px]">EN/IN</span>
+        </div>
+        <div class="flex items-center space-x-2 cursor-pointer">
+          <i class="fa-solid fa-user text-gray-600 hover:text-blue-600 text-2xl"></i>
+          <a href="login.html"><span class="text-[18px]">Login</span></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Hero -->
+  <section class="hidden md:flex w-full" id="hero">
+    <div class="relative h-[480px] w-full bg-[url('https://real11.com/assets/banners/bgmi-banner.png')] bg-cover bg-center">
+      <div class="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent"></div>
+      <div
+        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center px-4 sm:px-6 md:px-0 max-w-[90%]">
+        <h1 class="text-gray-900 text-4xl md:text-5xl font-bold drop-shadow-lg leading-snug"
+          style="font-family: 'Orbitron', sans-serif;">
+          Your Fantasy Esports Adventure Starts Here
+        </h1>
+        <p class="text-gray-700 text-base md:text-lg mt-2 drop-shadow-md">
+          Pick your dream team, play matches, and win amazing prizes every day! (to add data go to login page)
+        </p>
+        <button
+          class="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl shadow-md hover:bg-blue-700 transition">
+          Play Now
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <h1 class="text-center mt-2 text-gray-700">(if you want to add data go to login page)</h1>
+
+  <!-- Top Games Section -->
+  <section class="mt-4 p-4">
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-700" style="font-family: 'Orbitron', sans-serif;">
+        Top Games
+      </h1>
+      <a href="esportad.html" class="text-blue-600 hover:underline">See All</a>
+    </div>
+    <div class="overflow-x-auto scrollbar-hide">
+      <div class="flex gap-6 py-4 px-2" id="topgames"></div>
+    </div>
+  </section>
+
+  <!-- Top Players -->
+  <section class="mt-6 p-4">
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-700" style="font-family: 'Orbitron', sans-serif;">Top Players</h1>
+      <a href="esportadmt.html" class="text-blue-600 hover:underline">See All</a>
+    </div>
+    <div class="overflow-x-auto py-4 px-2">
+      <div class="flex gap-6" id="topp"></div>
+    </div>
+  </section>
+
+  <!-- Top Videos -->
+  <section class="mt-6 p-4">
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-700" style="font-family: 'Orbitron', sans-serif;">Top Videos</h1>
+      <a href="esportadmt.html" class="text-blue-600 hover:underline">See All</a>
+    </div>
+    <div class="overflow-x-auto py-4 px-2">
+      <div class="flex gap-6" id="topvideos"></div>
+    </div>
+  </section>
+
+  <!-- Tournaments -->
+  <section class="mt-6 p-4">
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-700" style="font-family: 'Orbitron', sans-serif;">Tournaments</h1>
+      <a href="esportadmt.html" class="text-blue-600 hover:underline">See All</a>
+    </div>
+    <div class="overflow-x-auto py-4 px-2">
+      <div class="flex gap-6" id="tournamentsDiv"></div>
+    </div>
+  </section>
+
+  <!-- Script -->
+  <script>
+    const sections = [
+      { id: "topgames", key: "topcard" },
+      { id: "topp", key: "topplays" },
+      { id: "topvideos", key: "topvideos" },
+      { id: "tournamentsDiv", key: "tournaments" }
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      sections.forEach(section => {
+        const container = document.getElementById(section.id);
+        if (!container) return;
+        const data = JSON.parse(localStorage.getItem(section.key)) || [];
+        container.innerHTML = "";
+        data.forEach(item => {
+          container.innerHTML += renderCard(section.key, item);
+        });
+      });
+    });
+
+    function renderCard(sectionKey, item) {
+      if (sectionKey === "topcard") {
+        // Top Games Card
+        return `
+<div class="w-52 sm:w-60 md:w-72 flex-shrink-0 
+            bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 
+            hover:shadow-xl transition-all duration-300 
+            hover:-translate-y-2 hover:scale-105 cursor-pointer group flex flex-col">
+
+  <div class="relative h-48 w-full overflow-hidden">
+    <img src="${item.timg}" alt="${item.tname}" 
+      class="w-full h-full object-cover group-hover:scale-105 transition duration-500 ease-in-out">
+  </div>
+
+  <div class="p-4 flex flex-col flex-grow">
+    <h3 class="text-xl font-bold text-gray-900 truncate">${item.tname}</h3>
+    <p class="text-gray-600 text-sm line-clamp-2 flex-grow">${item.tpara}</p>
+
+    <button class="w-full mt-3 py-2 rounded-lg bg-blue-600 
+      text-white font-semibold shadow-md hover:bg-blue-700 transition">
+      Play Now
+    </button>
+  </div>
+</div>`;
+      } else if (sectionKey === "topplays") {
+        // Top Players Card
+        return `
+<div class="w-[280px] bg-white rounded-2xl shadow-lg border border-gray-200 
+            hover:shadow-xl transition-all duration-300 
+            hover:-translate-y-2 hover:scale-95 cursor-pointer group">
+  <div class="relative h-44">
+    <img src="${item.timg}" alt="${item.tname}" 
+      class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+  </div>
+  <div class="p-4 text-center">
+    <h3 class="text-xl font-bold text-gray-900">${item.tname}</h3>
+    <p class="text-gray-600 text-sm">${item.tpara}</p>
+  </div>
+</div>`;
+      } else if (sectionKey === "tournaments") {
+        // Tournaments Card
+        return `
+<div class="min-w-[320px] bg-white rounded-2xl shadow-lg border border-gray-200 
+            hover:shadow-xl transition-all duration-300 
+            hover:-translate-y-2 cursor-pointer group">
+  <div class="relative h-44">
+    <img src="${item.timg}" alt="${item.tname}" 
+      class="w-full h-full object-cover group-hover:scale-90 transition duration-500">
+  </div>
+  <div class="p-4">
+    <h3 class="text-xl font-bold text-gray-900">${item.tname}</h3>
+    <p class="text-gray-600 text-sm line-clamp-2">${item.tpara}</p>
+    <span class="text-blue-600 font-semibold mt-2 inline-block">Read More</span>
+  </div>
+</div>`;
+      } else if (sectionKey === "topvideos") {
+        function convertToId(url) {
+          if (url.includes("youtu.be/")) {
+            return url.split("youtu.be/")[1].split("?")[0];
+          } else if (url.includes("watch?v=")) {
+            return url.split("watch?v=")[1].split("&")[0];
+          } else if (url.includes("embed/")) {
+            return url.split("embed/")[1].split("?")[0];
+          }
+          return "";
+        }
+        const videoId = convertToId(item.timg);
+        return `
+<a href="${item.timg}" target="_blank" class="min-w-[320px] bg-white rounded-2xl shadow-lg border border-gray-200 
+            hover:shadow-xl transition-all duration-300 
+            hover:-translate-y-2 hover:scale-105 cursor-pointer group block">
+  <div class="relative h-52">
+    <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="${item.tname}"
+      class="w-full h-full object-cover rounded-t-2xl group-hover:scale-110 transition duration-500">
+    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 
+                group-hover:opacity-100 transition">
+      <i class="fa-solid fa-circle-play text-6xl text-white"></i>
+    </div>
+  </div>
+  <div class="p-4">
+    <h3 class="text-lg font-bold text-gray-900">${item.tname}</h3>
+    <p class="text-gray-600 text-sm line-clamp-2">${item.tpara}</p>
+  </div>
+</a>`;
+
+      }
+    }
+  </script>
+
+</body>
+
+</html>
