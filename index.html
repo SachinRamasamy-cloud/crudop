@@ -32,19 +32,22 @@
       </div>
 
       <!-- Profile / Login -->
-      <div class="hidden md:flex justify-center space-x-4 items-center">
-        <div class="flex items-center space-x-2">
+      <div class="flex justify-center space-x-4 items-center">
+        <div class="hidden md:flex items-center space-x-2">
           <img
             src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTDnTIKoY3mdKWZFSXyQmFpjQ5Ke0WtShlWt72bmoEizuPTIn4Vk31nAKPdtyvbDlpCd5zMJkphVcY7PyAt3imy_bmM39LIIENslukyeMemmg"
             class="w-8 h-8 rounded-full" alt="">
           <span class="text-[18px]">EN/IN</span>
         </div>
-        <div class="flex items-center space-x-2 cursor-pointer">
+        <div class="hidden md:flex items-center space-x-2 cursor-pointer">
           <i class="fa-solid fa-user text-gray-600 hover:text-blue-600 text-2xl"></i>
           <a href="login.html"><span class="text-[18px]">Login</span></a>
         </div>
       </div>
-
+      <div class="flex md:hidden">
+        <a href="login.html">
+        <button class="p-3 bg-blue-500 rounded-lg font-semibold text-white">Login</button></a>
+      </div>
     </div>
   </section>
 
@@ -80,7 +83,9 @@
       <a href="esportad.html" class="text-blue-600 hover:underline">See All</a>
     </div>
     <div class="overflow-x-auto scrollbar-hide">
-      <div class="flex gap-6 py-4 px-2" id="topgames"></div>
+      <div class="flex gap-6 py-4 px-2" id="topgames">
+        <!-- card will apear here -->
+      </div>
     </div>
   </section>
 
