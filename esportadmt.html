@@ -26,10 +26,10 @@
 
     <!-- Section Tabs -->
     <div class="flex justify-center gap-4 mb-6 flex-wrap">
-      <button class="tab-btn bg-black text-white px-4 py-2 rounded hover:shadow-[0_0_10px_#ec4899]" data-section="topcard">Top Games</button>
-      <button class="tab-btn bg-gray-200 px-4 py-2 rounded hover:shadow-[0_0_10px_#8b5cf6]" data-section="topplays">Top Plays</button>
-      <button class="tab-btn bg-gray-200 px-4 py-2 rounded hover:shadow-[0_0_10px_#22d3ee]" data-section="topvideos">Top Videos</button>
-      <button class="tab-btn bg-gray-200 px-4 py-2 rounded hover:shadow-[0_0_10px_#f59e0b]" data-section="tournaments">Coming Tournaments</button>
+      <button class="tab-btn bg-black text-white px-4 py-2 rounded" data-section="topgames">Top Games</button>
+      <button class="tab-btn bg-gray-200 px-4 py-2 rounded" data-section="topplays">Top Plays</button>
+      <button class="tab-btn bg-gray-200 px-4 py-2 rounded" data-section="topvideos">Top Videos</button>
+      <button class="tab-btn bg-gray-200 px-4 py-2 rounded" data-section="tournaments">Coming Tournaments</button>
     </div>
 
     <!-- Section Forms and Cards -->
@@ -38,22 +38,24 @@
   </div>
 
   <script>
-const sections = [
-  { key: "topcards", label: "Top Games" },
-  { key: "topplays", label: "Top Plays" },
-  { key: "topvideos", label: "Top Videos" },
-  { key: "tournaments", label: "Coming Tournaments" }
-];
+    // Default data for all sections
+    const defaultData = {
+      topgames: [
+        { tname: "PUBG Mobile", timg: "https://cdn.mos.cms.futurecdn.net/6K4JIp4jOSAmhpN6wXNjka.jpg", tpara: "Battle royale survival" },
+        { tname: "Valorant", timg: "https://cdn.oneesports.gg/cdn-data/2023/05/Valorant_Jett_Sova_Phoenix-1024x576.jpg", tpara: "Tactical FPS 5v5" }
+      ],
+      topplays: [],
+      topvideos: [],
+      tournaments: []
+    };
 
-    let activeSection = sections[0].key;
+    let activeSection = "topgames";
+    let editIndex = null;
 
-let editIndex = null;
-
-    // Load data with defaults
     function getSectionData(sectionKey) {
       let data = JSON.parse(localStorage.getItem(sectionKey));
       if (!data) {
-        data = defaultData[sectionKey]; // set default
+        data = defaultData[sectionKey];
         saveSectionData(sectionKey, data);
       }
       return data;
@@ -63,7 +65,6 @@ let editIndex = null;
       localStorage.setItem(sectionKey, JSON.stringify(data));
     }
 
-    // Render Section
     function renderSection(sectionKey) {
       const container = document.getElementById("section-container");
       container.innerHTML = "";
@@ -109,7 +110,6 @@ let editIndex = null;
       };
     }
 
-    // Render Card View
     function renderCards(sectionKey) {
       const container = document.getElementById("cardsContainer");
       container.innerHTML = "";
@@ -138,7 +138,6 @@ let editIndex = null;
       });
     }
 
-    // Edit
     window.editItem = (index) => {
       const data = getSectionData(activeSection);
       document.getElementById("nameInput").value = data[index].tname;
@@ -147,7 +146,6 @@ let editIndex = null;
       editIndex = index;
     };
 
-    // Delete
     window.deleteItem = (index) => {
       if (!confirm("Are you sure?")) return;
       const data = getSectionData(activeSection);
@@ -156,7 +154,6 @@ let editIndex = null;
       renderCards(activeSection);
     };
 
-    // Tabs
     document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         document.querySelectorAll(".tab-btn").forEach(b => {
@@ -172,7 +169,7 @@ let editIndex = null;
       });
     });
 
-    // Load first
+    // Load first section
     renderSection(activeSection);
   </script>
 
